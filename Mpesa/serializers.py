@@ -2,6 +2,7 @@ from rest_framework import serializers, response, status
 from .validators import validate_possible_number
 
 from .utils import MpesaGateWay
+from .models import MpesaResponseBody
 
 pay = MpesaGateWay()
 
@@ -35,11 +36,19 @@ class SendSTKPushSerializer(serializers.Serializer):
         elif str(phonenumber)[0] == "0":
             phonenumber = "254" + phonenumber[1:]
 
-        callback_url = 'https://lehky.co/'
+        callback_url = ''
         payment = pay.stk_push(phonenumber=phonenumber, amount=amount, callback_url=callback_url)
 
         res = payment.json()
 
         return res
+    
+
+class MpesaResponseBodySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = MpesaResponseBody
+        fields = "__all__"
+
+        
         
                 
