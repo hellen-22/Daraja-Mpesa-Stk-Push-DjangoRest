@@ -17,21 +17,18 @@ This endpoint allows viewing of callback data sent from Safaricom.
 - Clone the repository:
  
 - Create a virtual environment and activate it:
-
-    ```bash
-
-            python -m venv env
-            env/bin/activate
-     ```
+```sql
+python -m venv env
+env/bin/activate
+```
 - Install the required packages:
-    ```bash
-            pip install -r requirements.txt 
-    ```
+```sql
+pip install -r requirements.txt 
+```
 - Set up the database:
-    ```bash
-            python manage.py migrate
-    ```
-
+```sql
+python manage.py migrate
+```
 - Run the server:
-    ```bash
-            python manage.py runserver
+```sql
+python manage.py runserver
