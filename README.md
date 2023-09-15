@@ -12,7 +12,7 @@ This endpoint allows sending stk push to the provided phone number. The required
  ```
 This endpoint allows viewing of callback data sent from Safaricom.
 
-> To install, follow these steps:
+## To install, follow these steps:
 
 - Clone the repository:
  
