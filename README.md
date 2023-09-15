@@ -14,7 +14,7 @@ This endpoint allows viewing of callback data sent from Safaricom.
 
 ## To install, follow these steps:
 
-- Clone the repository:
+- Clone the repository
  
 - Create a virtual environment and activate it:
 ```sql
