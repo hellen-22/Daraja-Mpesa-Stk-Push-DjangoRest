@@ -1,5 +1,6 @@
 # Daraja-Mpesa-Stk-Push-DjangoRest
 Simple Mpesa Express Project that enables sending stk push and generating callback data.
+
 Available endpoints:
 
 ```sql
