@@ -1,7 +1,7 @@
 from django.forms.models import model_to_dict
 from rest_framework import views, response, status
 
-from .serializers import SendSTKPushSerializer, MpesaResponseBodySerializer
+from .serializers import SendSTKPushSerializer, MpesaResponseBodySerializer, TransactionSerializer
 from .models import MpesaResponseBody, Transaction
 
 class SendSTKPushView(views.APIView):
@@ -18,20 +18,29 @@ class MpesaCallbackView(views.APIView):
 
         if body:
             mpesa = MpesaResponseBody.objects.create(body=body)
-        
-            mpesa_body = model_to_dict(mpesa)['body']
 
-            transactions = Transaction.objects.create(
-                amount=mpesa_body['Body']['stkCallback']['CallbackMetadata']['Item'][0]["Value"],
-                receipt_no=mpesa_body['Body']['stkCallback']['CallbackMetadata']['Item'][1]["Value"],
-                phonenumber=mpesa_body['Body']['stkCallback']['CallbackMetadata']['Item'][-1]["Value"],
-            )
+            mpesa_body = mpesa.body
+
+            if mpesa_body['stkCallback']['ResultCode'] == 0:
+                transaction = Transaction.objects.create(
+                    amount=mpesa_body['Body']['stkCallback']['CallbackMetadata']['Item'][0]["Value"],
+                    receipt_no=mpesa_body['Body']['stkCallback']['CallbackMetadata']['Item'][1]["Value"],
+                    phonenumber=mpesa_body['Body']['stkCallback']['CallbackMetadata']['Item'][-1]["Value"],
+                )
 
             return response.Response({"message": "Callback received and processed successfully."})
-        return response.Response({"failed": "Transaction Failed"}, status=status.HTTP_400_BAD_REQUEST)
+        return response.Response({"failed": "No Callback Received"}, status=status.HTTP_400_BAD_REQUEST)
     
     def get(self, request, format=None):
         response_bodies = MpesaResponseBody.objects.all()
         serializer = MpesaResponseBodySerializer(response_bodies, many=True)
 
-        return response.Response({"bodies": serializer.data})
+        return response.Response({"responses": serializer.data})
+
+class TransactionView(views.APIView):
+    def get(self, request, format=None):
+        transactions = Transaction.objects.all()
+        serializer = TransactionSerializer(transactions, many=True)
+
+        return response.Response({"transactions": serializer.data})
+    

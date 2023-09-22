@@ -1,8 +1,8 @@
-from rest_framework import serializers, response, status
+from rest_framework import serializers
 from .validators import validate_possible_number
 
 from .utils import MpesaGateWay
-from .models import MpesaResponseBody
+from .models import MpesaResponseBody, Transaction
 
 pay = MpesaGateWay()
 
@@ -50,5 +50,8 @@ class MpesaResponseBodySerializer(serializers.ModelSerializer):
         fields = "__all__"
 
         
-        
+class TransactionSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Transaction
+        fields = "__all__"
                 
