@@ -1,5 +1,16 @@
 asgiref==3.7.2
+certifi==2023.7.22
+charset-normalizer==3.2.0
 Django==4.2.5
+django-environ==0.11.2
+django-phonenumber-field==7.1.0
+django-rest-framework==0.1.0
+djangorestframework==3.14.0
+idna==3.4
+phonenumbers==8.13.20
+pytz==2023.3.post1
+requests==2.31.0
 sqlparse==0.4.4
 typing_extensions==4.7.1
 tzdata==2023.3
+urllib3==2.0.4
