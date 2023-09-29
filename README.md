@@ -20,7 +20,7 @@ This endpoint allows viewing of callback data sent from Safaricom.
 - Create a virtual environment and activate it:
 ```sql
 python -m venv env
-env/bin/activate
+env/Scripts/activate
 ```
 - Install the required packages:
 ```sql
