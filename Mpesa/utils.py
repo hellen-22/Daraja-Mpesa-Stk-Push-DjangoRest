@@ -7,7 +7,7 @@ from datetime import datetime
 from requests.auth import HTTPBasicAuth
 from requests import Response
 
-from core.settings import env
+from django.conf import settings
 from .exceptions import *
 
 
@@ -47,12 +47,12 @@ class MpesaGateWay:
 
 
     def __init__(self):
-        self.business_shortcode = env("BUSINESS_SHORTCODE")
-        self.consumer_key = env("CONSUMER_KEY")
-        self.consumer_secret = env("CONSUMER_SECRET")
-        self.access_token_url = env("ACCESS_TOKEN_URL")
+        self.business_shortcode = settings.BUSINESS_SHORTCODE
+        self.consumer_key = settings.CONSUMER_KEY
+        self.consumer_secret = settings.CONSUMER_SECRET
+        self.access_token_url = settings.ACCESS_TOKEN_URL
         self.password = self.generate_password()
-        self.checkout_url = env("CHECKOUT_URL")
+        self.checkout_url = settings.CHECKOUT_URL
 
         try:
             self.access_token = self.getAccessToken()
@@ -89,7 +89,7 @@ class MpesaGateWay:
 
     def generate_password(self):
         self.timestamp = now.strftime("%Y%m%d%H%M%S")
-        password_str = env("BUSINESS_SHORTCODE") + env("PASS_KEY") + self.timestamp
+        password_str = settings.BUSINESS_SHORTCODE + settings.PASS_KEY + self.timestamp
         password_bytes = password_str.encode("ascii")
         return base64.b64encode(password_bytes).decode("utf-8")
     
